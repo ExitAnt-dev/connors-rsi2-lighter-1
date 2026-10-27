@@ -12,11 +12,7 @@ services:
       mountPath: /data
       sizeGB: 1
     envVars:
-      - key: LIGHTER_API_KEY
-        sync: false
-      - key: LIGHTER_ACCOUNT_INDEX
-        sync: false
-      - key: LIGHTER_API_KEY_INDEX
+      - key: LIGHTER_WALLET_KEY
         sync: false
       - key: TELEGRAM_BOT_TOKEN
         sync: false
