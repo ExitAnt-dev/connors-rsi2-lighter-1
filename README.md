@@ -32,9 +32,11 @@ https://render.com/deploy?repo=https://github.com/ExitAnt-dev/connors-rsi2-light
   field is empty), connect and deposit USDC — the first deposit creates the account with that code. Lighter sets the code only when the account
   is created and it can never be added later, so an existing Lighter account cannot be used — create a new wallet account. The bot checks the
   code at every start and once an hour while trading.
-- **An API key** from [app.lighter.xyz/apikeys](https://app.lighter.xyz/apikeys): connect the wallet, click *Generate API Key* and copy the three
-  values the page shows — **Your Account Index**, **API Key Index** and **Private Key**. Leave **Maker Only off** (a maker-only key cannot place
-  the bot's market and stop orders). Do not delete that key while the bot runs.
+- **An API key** from [app.lighter.xyz/apikeys](https://app.lighter.xyz/apikeys): connect the wallet, click *Generate API Key*, copy the three
+  values the page shows — **Your Account Index**, **API Key Index** and **Private Key** — and then **finish the registration step with the wallet
+  signature**. A key that was only generated is not known to Lighter: the bot refuses it with “no API key registered at key index N”. The key
+  is registered when it appears in the key list on that page. Leave **Maker Only off** (a maker-only key cannot place the bot's market and stop
+  orders). Do not delete that key while the bot runs.
 - **USDC in the Lighter Perps account** (deposits go to Perps by default; USDC on Spot is not collateral).
 - **Classic account mode** (the default). In Unified mode the bot does not start — switch it in the Lighter app settings while no position is open.
 - **The ExitAnt fee approval (once).** The bot attaches ExitAnt's integrator fee (0.1% taker/maker) to its orders; Lighter requires the account
