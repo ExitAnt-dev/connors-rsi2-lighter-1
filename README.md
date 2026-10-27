@@ -27,9 +27,11 @@ https://render.com/deploy?repo=https://github.com/ExitAnt-dev/connors-rsi2-light
 
 ## Before you deploy
 
-- **A Lighter account created through ExitAnt.** Open Lighter through ExitAnt's referral link with your wallet (MetaMask), connect it and deposit
-  USDC — the first deposit creates the account with the referral code. The code can only be set when the account is created; at every start
-  the bot checks that the account signed up with an ExitAnt code.
+- **A Lighter account created with ExitAnt's referral code `764313PR`.** Open [app.lighter.xyz/?referral=764313PR](https://app.lighter.xyz/?referral=764313PR)
+  with a wallet (MetaMask) that has **never been used on Lighter**, make sure the referral code shown at sign-up is `764313PR` (enter it if the
+  field is empty), connect and deposit USDC — the first deposit creates the account with that code. Lighter sets the code only when the account
+  is created and it can never be added later, so an existing Lighter account cannot be used — create a new wallet account. The bot checks the
+  code at every start and once an hour while trading.
 - **An API key** from [app.lighter.xyz/apikeys](https://app.lighter.xyz/apikeys): connect the wallet, click *Generate API Key* and copy the three
   values the page shows — **Your Account Index**, **API Key Index** and **Private Key**. Leave **Maker Only off** (a maker-only key cannot place
   the bot's market and stop orders). Do not delete that key while the bot runs.
@@ -64,6 +66,8 @@ Nothing else to configure: the exchange, trading mode and state-file location ar
 - Keeps one account per symbol (trading pocket + vault), like TanQuant's multi-asset backtest. The Turtle merge moves part of the profit to the
   vault (your account's **Spot USDC**) on a trend exit and reinjects it after a deep drawdown, by the USA Turtle rules.
 - Every order carries ExitAnt's integrator attribution (0.1% taker/maker), credited to ExitAnt on Lighter.
+- Re-checks every hour while trading that the account still meets the conditions (ExitAnt referral code, fee approval, Plus tier). If one no
+  longer holds, it stops opening new positions — the stops and exits of held positions keep running — and asks you in Telegram to complete that step again.
 - Never stops trading because of an exchange answer — a refused or failed request skips that symbol for that cycle and is retried.
 
 ⚠️ Futures trading carries a very high risk of loss. Backtest results do not guarantee future returns.
