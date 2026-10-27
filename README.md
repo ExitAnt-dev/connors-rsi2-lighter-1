@@ -40,13 +40,28 @@ https://render.com/deploy?repo=https://github.com/ExitAnt-dev/connors-rsi2-light
 - **USDC in the Lighter Perps account** (deposits go to Perps by default; USDC on Spot is not collateral).
 - **Classic account mode** (the default). In Unified mode the bot does not start — switch it in the Lighter app settings while no position is open.
 - **The ExitAnt fee approval (once).** The bot attaches ExitAnt's integrator fee (0.1% taker/maker) to its orders; Lighter requires the account
-  owner's wallet to approve that once with a signature. The bot cannot sign for you (it has no wallet key): after the welcome message it shows a
-  text — copy it, sign it with the wallet that owns the account (MetaMask “Sign Message”, e.g. through the signing tool linked in the chat)
-  and paste the resulting signature into the chat. The bot sends the approval and continues. Without the approval nothing is traded.
+  owner's wallet to approve that once with a signature. The bot cannot sign for you (it has no wallet key) and **nothing pops up in MetaMask or
+  the Lighter app** — see “First start” below. Once approved, it is never repeated (valid 10 years). Without the approval nothing is traded.
 - **Plus account tier.** The fee can only be charged on a Plus (or Premium) account. If your account is Standard, the bot asks for your consent
   in Telegram and switches it to Plus for you; Plus adds Lighter's own 0.005% maker/taker fee to every trade (Standard is 0%).
   You can switch back in the Lighter app after 24 hours.
 - Lighter holds **one position per symbol**: a symbol runs long *or* short (the “Both” direction is not offered, also when changing settings).
+
+## First start — the fee approval, step by step
+
+Right after the 🚀 welcome message the bot sends a guide and a grey box with the **approval text**. You need the very MetaMask wallet that created
+the Lighter account (the bot shows its address). On a PC use a browser with the MetaMask extension; on a phone use the browser inside the MetaMask app.
+
+1. Long-press the grey box in Telegram and **copy all of it** — do not change a single character.
+2. Open [MyCrypto “Sign Message”](https://app.mycrypto.com/sign-message) (phone: MetaMask app → browser tab → this address).
+3. Press **Web3** → MetaMask asks to connect → check it is the wallet with the address the bot showed → connect.
+4. Paste the text into the **Message** field and press **Sign Message**.
+5. MetaMask shows a **Signature request** → press **Sign**. No gas, not a transaction, no assets move.
+6. The result appears in the **Signature** box. Copy the whole box (or just the `sig` value) and paste it into the Telegram chat.
+7. The bot sends “⏳ Sending the approval…” and then “✅ approval confirmed”. Continue with `/start` to set up trading.
+
+If the bot says the text changed, press **🔄 New text** and sign the new text. If it says the signature is from another wallet, switch MetaMask to the
+account with the address shown and sign again.
 
 ## Environment variables
 
