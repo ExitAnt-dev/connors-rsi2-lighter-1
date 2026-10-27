@@ -17,8 +17,9 @@ https://render.com/deploy?repo=https://github.com/ExitAnt-dev/connors-rsi2-light
 ```
 
 1. Click the button (or open the link) and sign in to Render.
-2. Render reads `render.yaml` and proposes **one background worker** with a **1 GB persistent disk** mounted at `/data`
-   (settings, books, positions and the bot's own API key survive restarts and redeploys).
+2. Render reads `render.yaml` and proposes **one background worker** in the **Frankfurt** region with a **1 GB persistent disk** mounted at `/data`
+   (settings, books, positions and the bot's own API key survive restarts and redeploys). Keep the region: Lighter refuses every write
+   (orders, key registration) from US addresses — “restricted jurisdiction” — so a US region (Oregon, Ohio, Virginia) cannot trade.
 3. Enter the environment variables listed below. They are marked `sync: false`, so Render asks you for them on the deploy screen
    and stores them **only in your own Render account**.
 4. Click **Apply** and wait for the first deploy to finish.

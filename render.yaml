@@ -3,7 +3,8 @@ services:
     name: exitant-connors-rsi2-lighter
     runtime: image
     plan: starter
-    region: oregon
+    region: frankfurt   # Lighter refuses writes from US addresses (20558 restricted jurisdiction) — never a US region
+
     numInstances: 1
     image:
       url: docker.io/exitant/exitant-connors-rsi2-lighter:1
