@@ -4,8 +4,9 @@ Deploy this automated trading bot to **your own Render account** as a background
 this repository contains **only the Render Blueprint (`render.yaml`)** — no source code. One repository per image tag (`connors-rsi2-lighter-1` … `-6`).
 
 The bot trades **Larry Connors RSI2** or **Turtle + Connors RSI2 merge** on [Lighter](https://app.lighter.xyz) USDC perpetual futures with exactly the
-rules of the TanQuant backtest engine, on the exchange's own daily candles (UTC day; stocks/ETFs: US trading days only) for every indicator.
-Yahoo daily candles are used only to complete the 200-day moving average of symbols with fewer than 200 exchange candles (recently listed).
+rules of the TanQuant backtest engine, on the exchange's own candles — daily (the original rule), 4-hour or 1-hour, chosen in the bot; UTC-aligned,
+stocks/ETFs only US trading days and, on 4-hour/1-hour, only NYSE regular-session candles — for every indicator. On daily candles, Yahoo daily
+candles are used only to complete the 200-day moving average of symbols with fewer than 200 exchange candles (recently listed).
 Copy a TanQuant result with **“Copy bot setup”** and paste it into the bot to set everything up at once.
 
 ## Deploy to Render
@@ -71,7 +72,9 @@ Nothing else to configure: the exchange, trading mode and state-file location ar
 
 ## What the bot does
 
-- Decides once per daily candle, right after the exchange closes it (UTC midnight), and sends market orders at once (the backtest's “fill at the close”).
+- Decides once per candle of the chosen length — daily at UTC midnight, 4-hour/1-hour right after each candle closes (stocks: session candles only) —
+  and sends market orders at once (the backtest's “fill at the close”). On 4-hour/1-hour candles every indicator length is counted in candles, as in TanQuant
+  (200-day MA → 200-bar MA).
 - Places an exchange stop-loss order per symbol and direction (the farthest stop of the open lots) and watches the closer stops and the exit rules itself
   around the clock — **keep the bot running**.
 - Keeps one account per symbol (trading pocket + vault), like TanQuant's multi-asset backtest. The Turtle merge moves part of the profit to the
