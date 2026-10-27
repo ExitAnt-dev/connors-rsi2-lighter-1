@@ -41,7 +41,9 @@ https://render.com/deploy?repo=https://github.com/ExitAnt-dev/connors-rsi2-light
   (key index 250) at the first start.
 - **USDC in the Lighter Perps account** (deposits go to Perps by default; USDC on Spot is not collateral). The trading key cannot be registered
   while the account holds no collateral.
-- **Classic account mode** (the default). In Unified mode the bot does not start — switch it in the Lighter app settings while no position is open.
+- **Simple Trading Account** (the default account type; the API calls it "classic"). If the account is a Unified Trading Account, the bot switches it
+  to Simple at the start (turning off any non-USDC asset used as margin first). It does not switch while a position is open — close the positions,
+  or switch it yourself on the Lighter web app (app.lighter.xyz; the account type can be changed only on the web). Open spot orders block the change.
 - **The ExitAnt fee approval** happens automatically at the first start: the bot attaches ExitAnt's integrator fee (0.1% taker/maker) to its orders,
   and Lighter requires a one-time wallet-signed approval of that fee, which the bot signs with the wallet key. It is done once per account and
   never repeated. Without a confirmed approval nothing is traded.
