@@ -52,7 +52,7 @@ https://render.com/deploy?repo=https://github.com/ExitAnt-dev/connors-rsi2-light
 
 | Variable | What to enter |
 |---|---|
-| `LIGHTER_API_KEY` | The API key's **Private Key** (`0x` + 80 hex characters) from the Lighter API key screen |
+| `LIGHTER_API_KEY` | The API key's **Private Key** exactly as the Lighter API key screen shows it (80 hexadecimal characters; a leading `0x` is optional) |
 | `LIGHTER_ACCOUNT_INDEX` | **Your Account Index** from the same screen |
 | `LIGHTER_API_KEY_INDEX` | **API Key Index** from the same screen (4–254) |
 | `TELEGRAM_BOT_TOKEN` | Bot token issued by [@BotFather](https://t.me/BotFather) |
