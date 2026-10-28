@@ -29,15 +29,14 @@ https://render.com/deploy?repo=https://github.com/ExitAnt-dev/connors-rsi2-light
 
 ## Before you deploy
 
-- **A Lighter account created with ExitAnt's referral code `764313PR`.** Open [app.lighter.xyz/?referral=764313PR](https://app.lighter.xyz/?referral=764313PR)
-  with a wallet (MetaMask) that has **never been used on Lighter**, make sure the referral code shown at sign-up is `764313PR` (enter it if the
-  field is empty), connect and deposit USDC — the first deposit creates the account with that code. Lighter sets the code only when the account
-  is created and it can never be added later, so an existing Lighter account cannot be used — create a new wallet account. The bot checks the
-  code at every start and once an hour while trading.
+- **A Lighter account, on a wallet used only for this bot.** Create a new MetaMask account for the bot, open [app.lighter.xyz](https://app.lighter.xyz),
+  connect that wallet and deposit USDC — the first deposit creates the Lighter account. An existing Lighter account works too, but the bot needs the
+  wallet's private key, so keep only the funds you trade on that wallet — not your main wallet.
 - **The private key of that wallet** (MetaMask → account menu → *Account details* → *Show private key*; 64 hexadecimal characters). This is the only
   credential the bot needs. It uses the key for two signatures only — registering its own trading API key and approving the ExitAnt fee — never for
   withdrawals or transfers out of the account, and it never writes the key to logs or files. The key sits only in your Render environment variable,
-  so keep your Render account secure (2FA). Do not create an API key in the Lighter app for the bot; the bot makes and registers its own
+  so keep your Render account secure (2FA). **The bot never asks for a key in Telegram** — a message asking for one is not from the bot; if you paste
+  a key into the chat by mistake, the bot deletes the message and warns you (treat that key as exposed and move the funds to a new wallet). Do not create an API key in the Lighter app for the bot; the bot makes and registers its own
   (key index 250) at the first start.
 - **USDC in the Lighter Perps account** (deposits go to Perps by default; USDC on Spot is not collateral). The trading key cannot be registered
   while the account holds no collateral.
@@ -89,9 +88,9 @@ Nothing else to configure: the exchange, trading mode and state-file location ar
 - Keeps one account per symbol (trading pocket + vault), like TanQuant's multi-asset backtest. The Turtle merge moves part of the profit to the
   vault (your account's **Spot USDC**) on a trend exit and reinjects it after a deep drawdown, by the USA Turtle rules.
 - Every order carries ExitAnt's integrator attribution (0.1% taker/maker), credited to ExitAnt on Lighter.
-- Re-checks every hour while trading that the account still meets the conditions (ExitAnt referral code, fee approval, Plus tier). If the approval
-  is missing it renews it with the wallet signature; if the code or tier no longer holds, it stops opening new positions — the stops and exits of
-  held positions keep running — and tells you in Telegram.
+- Re-checks every hour while trading that the account still meets the conditions (fee approval, Plus tier). If the approval is missing it renews it
+  with the wallet signature; if the tier no longer holds, it stops opening new positions — the stops and exits of held positions keep running — and
+  asks you in Telegram.
 - Never stops trading because of an exchange answer — a refused or failed request skips that symbol for that cycle and is retried.
 
 ⚠️ Futures trading carries a very high risk of loss. Backtest results do not guarantee future returns.
