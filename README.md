@@ -41,15 +41,17 @@ https://render.com/deploy?repo=https://github.com/ExitAnt-dev/connors-rsi2-light
 - **USDC in the Lighter Perps account** (deposits go to Perps by default; USDC on Spot is not collateral). The trading key cannot be registered
   while the account holds no collateral.
 - **Simple Trading Account** (the default account type; the API calls it "classic"). If the account is a Unified Trading Account, the bot switches it
-  to Simple at the start (turning off any non-USDC asset used as margin first). It does not switch while a position is open — close the positions,
-  or switch it yourself on the Lighter web app (app.lighter.xyz; the account type can be changed only on the web). Open spot orders block the change.
+  to Simple at the start (turning off any non-USDC asset used as margin first), also with positions open: if the Perps side alone would hold less
+  than 1.5 × the margin those positions need, it first moves the shortfall from your spot USDC to Perps (never the vault's share). If even that
+  cannot cover 1.5 × the maintenance margin, it changes nothing and tells you how much USDC to move. Open spot orders block the change.
 - **The ExitAnt fee approval** happens automatically at the first start: the bot attaches ExitAnt's integrator fee (0.1% taker/maker) to its orders,
   and Lighter requires a one-time wallet-signed approval of that fee, which the bot signs with the wallet key. It is done once per account and
   never repeated. Without a confirmed approval nothing is traded.
 - **Plus account tier.** The fee can only be charged on a Plus (or Premium) account. If your account is Standard, the bot asks for your consent
   in Telegram and switches it to Plus for you; Plus adds Lighter's own 0.005% maker/taker fee to every trade (Standard is 0%).
   You can switch back in the Lighter app after 24 hours.
-- Lighter holds **one position per symbol**: a symbol runs long *or* short (the “Both” direction is not offered, also when changing settings).
+- Lighter holds **one position per symbol**: a symbol runs long *or* short (the “Both” direction is not offered, also when changing settings), and the
+  Turtle + Connors merge is **long only** — a Turtle long and a Connors short on the same symbol would net against each other.
 
 ## First start
 
