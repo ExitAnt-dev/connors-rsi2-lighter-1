@@ -3,7 +3,7 @@
 Deploy this automated trading bot to **your own Render account** as a background worker. The bot runs from a prebuilt Docker image;
 this repository contains **only the Render Blueprint (`render.yaml`)** — no source code. One repository per image tag (`connors-rsi2-lighter-1` … `-6`).
 
-The bot trades **Larry Connors RSI2** or **Turtle + Connors RSI2 merge** on [Lighter](https://app.lighter.xyz) USDC perpetual futures with exactly the
+The bot trades **Larry Connors RSI2**, **Turtle only** or **Turtle + Connors RSI2 merge** on [Lighter](https://app.lighter.xyz) USDC perpetual futures with exactly the
 rules of the TanQuant backtest engine, on the exchange's own candles — daily (the original rule), 4-hour or 1-hour, chosen in the bot; UTC-aligned,
 stocks/ETFs only US trading days and, on 4-hour/1-hour, only NYSE regular-session candles — for every indicator. On daily candles, Yahoo daily
 candles are used only to complete the 200-day moving average of symbols with fewer than 200 exchange candles (recently listed).
@@ -76,6 +76,9 @@ Nothing else to configure: the exchange, trading mode and state-file location ar
 - Decides once per candle of the chosen length — daily at UTC midnight, 4-hour/1-hour right after each candle closes (stocks: session candles only) —
   and sends market orders at once (the backtest's “fill at the close”). On 4-hour/1-hour candles every indicator length is counted in candles, as in TanQuant
   (200-day MA → 200-bar MA).
+- Turtle only (bot-only — not a TanQuant Connors strategy): the Turtle side of the merge alone, always long, on one candle length, with no
+  Connors entries. In settings you can switch between the three, except that the side with an open position cannot be switched off
+  (a Turtle position blocks Connors only, a Connors position blocks Turtle only) — the bot says why and what you can choose instead.
 - In the Turtle + Connors merge the Turtle side can run on its own candle length (e.g. Turtle 4-hour, Connors 1-hour) — chosen on the first Turtle
   screen of the wizard and under 🐢 Turtle rules in settings. Keeping both the same is the TanQuant backtest setup; a different pair is a bot-only
   setting that TanQuant cannot backtest (the Turtle channel and its ATR stop come from the Turtle candles, each side decides at its own candle close).
